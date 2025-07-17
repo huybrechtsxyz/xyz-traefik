@@ -1,0 +1,17 @@
+{
+  "services": [
+    {
+      "id": "traefik",
+      "repo": "huybrechtsxyz/xyz-traefik",
+      "ref": "main",
+      "path": "src/service.json",
+      "enabled": true,
+      "deploy": {
+        "priority": 1,
+        "groups": ["infra"],
+        "serverrole": "manager",
+        "endpoint": "http://traefik.${DOMAIN_DEV}/dashboard/"
+      }
+    }
+  ]
+}

@@ -21,7 +21,7 @@ networks:
 
 services:
 
-  traefik:
+  traefik-${environment}:
     image: "traefik:v3.3.6"
     ports:
       - 80:80
