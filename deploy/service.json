@@ -1,0 +1,54 @@
+{
+  "api-version": 1.0,
+  "service": {
+    "id": "traefik",
+    "name": "Traefik",    
+    "description": "Reverse proxy and load balancer for microservices",
+    "meta": {
+      "traefik_path": "/ping"
+    },
+    "tags":[
+      "traefik","proxy","docker-swarm","system"
+    ],
+    "mounts": [
+      { "type": "config", "chmod": 755, "path":"",    "source":"config" },
+      { "type": "config", "chmod": 755, "path":"etc", "source":"" },
+      { "type": "docs",   "chmod": 755, "path":"",    "source":"docs" },
+      { "type": "data",   "chmod": 600, "path":"",    "source":"" },
+      { "type": "logs",   "chmod": 777, "path":"",    "source":"" }
+    ],
+    "deploy": {
+      "infra": {
+        "workspace": "platform",
+        "environment": "infra",
+        "groups": ["infra"],
+        "serverrole": "manager",
+        "priority": 1,
+        "variables": [
+          { "key": "value", "value": "value" }
+        ],
+        "secrets": [
+          { "key": "value", "source": "bitwarden", "id": "value-uuid" }
+        ],
+        "endpoints": [
+          "http://traefik.${DOMAIN_DEV}/dashboard/"
+        ],
+        "addresses": [
+          {
+            "address": "traefik",
+            "port": 8080
+          }
+        ],
+        "checks": [
+          {
+            "id": "traefik-http-check",
+            "name": "Traefik HTTP Health Check",
+            "http": "http://traefik:8080/ping",
+            "interval": "60s",
+            "timeout": "15s"
+          }
+        ]
+      }
+    }
+  }
+}
